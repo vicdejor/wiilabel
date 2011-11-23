@@ -139,7 +139,7 @@ class Usuario extends CActiveRecord
 	{
 		//Comprobamos si A es amigo de B.
 		$connection=Yii::app()->db;
-		$sql='SELECT id FROM amistad WHERE id_jugador='.$id_jugador.' AND id_amigo='.$id_amigo.' AND estado="aceptado"';
+		$sql='SELECT id FROM amistad WHERE id_jugador='.$id_jugador.' AND id_amigo='.$id_amigo.' AND estado="aceptada"';
 		$dataReader=$connection->createCommand($sql)->query();
 		if($dataReader->read()!==false)
 		{
@@ -148,7 +148,7 @@ class Usuario extends CActiveRecord
 		else
 		{
 			//Comprobamos si B es amigo de A.
-			$sql='SELECT id FROM amistad WHERE id_jugador='.$id_amigo.' AND id_amigo='.$id_jugador.' AND estado="aceptado"';
+			$sql='SELECT id FROM amistad WHERE id_jugador='.$id_amigo.' AND id_amigo='.$id_jugador.' AND estado="aceptada"';
 			$dataReader=$connection->createCommand($sql)->query();
 			if($dataReader->read()!==false)
 			{
@@ -209,7 +209,7 @@ class Usuario extends CActiveRecord
 	
 	public function solicitudesDeAmistad($id_usuario)
 	{
-		$solicitudes_pedidas=Amistad::model()->findByAttributes(array('id_amigo'=>$id_usuario, 'estado'=>'pendiente'));
+		$solicitudes_pedidas=Amistad::model()->findAllByAttributes(array('id_amigo'=>$id_usuario, 'estado'=>'pendiente'));
 		return $solicitudes_pedidas;
 		//$solicitudes_por_aceptar=Amistad::model()->findByAttributes(array('id_amigo'=>$id_usuario, 'estado'=>'pendiente'));
 	}

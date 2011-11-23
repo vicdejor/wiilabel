@@ -1,16 +1,27 @@
 <?php $this->pageTitle=Yii::app()->name; ?>
 
-<h1>Welcome to <i><?php echo CHtml::encode(Yii::app()->name); ?></i></h1>
+<h1>Bienvenido, este es Top Five de <i><?php echo CHtml::encode(Yii::app()->name); ?></i></h1>
 
-<p>Congratulations! You have successfully created your Yii application.</p>
-
-<p>You may change the content of this page by modifying the following two files:</p>
-<ul>
-	<li>View file: <tt><?php echo __FILE__; ?></tt></li>
-	<li>Layout file: <tt><?php echo $this->getLayoutFile('main'); ?></tt></li>
-</ul>
-
-<p>For more details on how to further develop this application, please read
-the <a href="http://www.yiiframework.com/doc/">documentation</a>.
-Feel free to ask in the <a href="http://www.yiiframework.com/forum/">forum</a>,
-should you have any questions.</p>
+<?php
+    $sql = "SELECT DISTINCT titulo, id_juego, veces_jugado FROM juego WHERE veces_jugado=
+        (SELECT MAX(veces_jugado) FROM juego) ORDER BY veces_jugado DESC LIMIT 0, 5";
+    //$params=array(':accountId'=>$account->id,':paymentId'=>$payment->id);
+    
+    //$criteria = new CDbCriteria;
+    //$criteria->select = "titulo, id_juego";
+    //$criteria->distinct = true;
+    //$criteria->order = 'foreign_table3.col5 DESC';
+    //$model=Post::model()->findAllBySql($sql,$params);
+    //$model=Juego::model()->findAll($criteria);
+    $model=Juego::model()->findAllBySql($sql);
+    $arr=array();
+    for($i=0; $i<count($model); $i++) {
+        $arr[$i] = array('title' => $model[$i]->titulo, 'image' => Yii::app()->baseUrl .
+            '/images/wii/cover3D/EN/' . $model[$i]->id_juego . '.png' ,);
+    };
+    
+    $this->widget('application.extensions.jCoverFlip.jCoverFlip', 
+        array(
+            'elements' => $arr
+        )
+    );?>

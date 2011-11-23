@@ -8,6 +8,7 @@
 	<?php echo CHtml::encode($data->activo); ?>
 	<br /> -->
 
+    <div id=centrado>
 	<div id="contenido_en_linea">
 		<b><?php echo CHtml::encode($data->getAttributeLabel('nombre')); ?>:</b>
 		<?php echo CHtml::encode($data->nombre); ?>
@@ -23,15 +24,51 @@
 
 		<b><?php echo CHtml::encode($data->getAttributeLabel('apodo')); ?>:</b>
 		<?php echo CHtml::encode($data->apodo); ?>
-		<br />
+		<!--<br />
 
 		<b><?php echo CHtml::encode($data->getAttributeLabel('email')); ?>:</b>
-		<?php echo CHtml::encode($data->email); ?>
+		<?php echo CHtml::encode($data->email); ?>-->
 		<br />
 		<br />
 		
 		<?php if(Usuario::model()->solicitudAmistadEnTramite(Yii::app()->user->id,$data->id)): ?>
 			<div>Solicitud de amistad en tramite</div>
+		<?php endif; ?>
+		
+		<?php if(Usuario::model()->sonAmigos(Yii::app()->user->id,$data->id)): ?>
+		    <div id="mensaje" class="">
+		        <textarea id="texto_mensaje" rows="10" cols="60"></textarea>
+		    <br />
+		    <?php echo CHtml::ajaxButton(
+				  "enviar",
+				  Yii::app()->createUrl( 'usuario/ajaxEnviarMensaje' ),
+					  array( // ajaxOptions
+					    'type' => 'POST',
+					    'beforeSend' => "function( request )
+							     {
+							       jQuery('#mensaje').html('espera');						   
+							       $('#mensaje').addClass('loading');
+							       // Set up any pre-sending stuff like initializing progress indicator					  
+							     }",
+					    'complete' => 'function()
+					    		  	{
+					    		    $("#mensaje").removeClass("loading");
+	      							$("#mensaje").addClass("ok");
+	      							}',
+					    'success' => "function( data )
+							  {
+							    // handle return data
+							    jQuery('#mensaje').html(data);
+							  }",
+					    'data' => array( 'id_amigo' => $data->id )
+					  ),
+					  array( //htmlOptions
+					    'href' => Yii::app()->createUrl( 'usuario/ajaxEnviarMensaje' ),
+					    'class' => 'enviar_mensaje',
+					    'id' => '_mensaje'
+					  )
+				); ?>
+		    </div>
 		<?php endif; ?>
 
 		<?php if(Usuario::model()->puedeSolicitarAmistad(Yii::app()->user->id,$data->id)): ?>
@@ -73,7 +110,7 @@
 	<div id="contenido_en_linea">
 		<b><img src="images/usuarios/<?php echo $data->apodo; ?>/<?php echo $data->avatar; ?>" alt="Avatar">
 	</div>
-
+	</div>
 	<?php /*
 	<b><?php echo CHtml::encode($data->getAttributeLabel('fecha_nacimiento')); ?>:</b>
 	<?php echo CHtml::encode($data->fecha_nacimiento); ?>

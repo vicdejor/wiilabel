@@ -31,7 +31,8 @@ class UsuarioController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('update','jugadoresByJuego','index','view','ajaxrequest','ajaxAceptarAmistad','ajaxRechazarAmistad'),
+				'actions'=>array('update','jugadoresByJuego','index','view','ajaxrequest',
+				                    'ajaxAceptarAmistad','ajaxRechazarAmistad', 'ajaxEnviarMensaje'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -680,6 +681,33 @@ class UsuarioController extends Controller
 	  // echo the AJAX response
 	  // 
 	  echo "";
+	  Yii::app()->end();
+	}
+	
+	public function actionAjaxEnviarMensaje()
+	{
+	  $id_amigo = $_POST['id_amigo'];
+	  //$texto_mensaje = $_POST['texto_mensaje'];
+	  $id_jugador=Yii::app()->user->id;
+	 
+	  //
+	  // Perform processing
+	  //
+	 
+	  //
+	  // echo the AJAX response
+	  //
+	  //echo CHtml::encode(print_r($_POST, true));
+	  //if($texto_mensaje=='')
+	  //{
+	  //  echo "No se puede enviar mensajes sin texto";
+	  //}
+	  //else
+	  //{
+	  //  //$this->solicitarAmistad($id_jugador, $id_amigo);
+	    sleep(5);
+	    echo "Mensaje enviado";
+	  //}
 	  Yii::app()->end();
 	}
 }

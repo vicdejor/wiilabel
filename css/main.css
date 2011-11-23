@@ -14,7 +14,7 @@ body
 	border: 1px solid #C9E0ED;
 	behavior: url(border-radius.htc);
 	margin-top: 20px;
-	margin-bottom: 5px;
+	margin-bottom: 50px;
 	background: white;
 	-moz-box-shadow: 0 0 5px 5px #888;
 	-webkit-box-shadow: 0 0 5px 5px#888;
@@ -290,7 +290,7 @@ div.search-form
 }
 #contenido_en_linea img
 {
-       padding-left: 80%;
+       margin-left: 100%;
 }
 
 div.loading {
@@ -306,6 +306,8 @@ div.loading * {
 }
 
 div.ok {
+	background-color: #eee;
+	padding: 2px;
 	color: green;
 }
 

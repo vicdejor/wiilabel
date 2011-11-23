@@ -20,24 +20,30 @@ $this->menu=array(
 		'id_juego',
 		'titulo',
 		array(               
-            		'label'=>'Desarrollador',
-            		'type'=>'text',
-            		'value'=>$datosJuego["developer"],
+            	'label'=>'Desarrollador',
+            	'type'=>'text',
+            	'value'=>$datosJuego["developer"],
         	),
 		array(               
-            		'label'=>'Nº jugadores',
-            		'type'=>'text',
-            		'value'=>$datosJuego["input"],
+            	'label'=>'Nº jugadores',
+            	'type'=>'text',
+            	'value'=>$datosJuego["input"],
         	),
-        	array(               
-            		'label'=>'Jugadores on-line',
-            		'type'=>'text',
-            		'value'=>$datosJuego["wifi"],
+        array(               
+           		'label'=>'Jugadores on-line',
+            	'type'=>'text',
+            	'value'=>$datosJuego["wifi"],
         	),
-        	array(               
-            		'label'=>'Descripción',
-            		'type'=>'text',
-            		'value'=>$datosJuego["synopsis"],
+        array(               
+            	'label'=>'Descripción',
+            	'type'=>'text',
+            	'value'=>$datosJuego["synopsis"],
+        	),
+        array(               
+            	'label'=>'Gameranking',
+            	'type'=>'raw',
+            	'value'=>'<a href="http://www.gamerankings.com/browse.html?search='.
+            	    $datosJuego["title"].'&numrev=3&site=wii" target="_blank">'.$datosJuego["title"].'</a>',
         	),
 	),
 )); ?>

@@ -25,7 +25,9 @@ $this->menu=array(
 			for($i=0; $i<count($solicitudes_pedidas); $i++)
 			{ ?>
 			<?php echo"<div id='req_res_".$i."' class=''>"; ?>
-				<?php echo 'El usuario ' .Usuario::model()->findByPk($solicitudes_pedidas[$i]->id_jugador)->apodo.' quiere ser tu amig@...  ';?>
+				<?php echo 'El usuario ' .
+				    Usuario::model()->findByPk($solicitudes_pedidas[$i]->id_jugador)->apodo
+				        . ' quiere ser tu amig@...  ';?>
 					<?php echo CHtml::ajaxLink(
 					  'aceptar',
 					  Yii::app()->createUrl( 'usuario/ajaxAceptarAmistad' ),
@@ -33,7 +35,8 @@ $this->menu=array(
 						    'type' => 'POST',
 						    'beforeSend' => "function( request )
 								     {
-								       // Set up any pre-sending stuff like initializing progress indicator
+								       // Set up any pre-sending stuff like initializing progress
+								       // indicator
 								       jQuery('#req_res_".$i."').html('espera');						   
 								       $('#req_res_".$i."').addClass('loading');						  
 								     }",
@@ -67,7 +70,8 @@ $this->menu=array(
 						    'type' => 'POST',
 						    'beforeSend' => "function( request )
 								     {
-								       // Set up any pre-sending stuff like initializing progress indicator
+								       // Set up any pre-sending stuff like initializing progress
+								       // indicator
 								       jQuery('#req_res_".$i."').html('espera');						   
 								       $('#req_res_".$i."').addClass('loading');						  
 								     }",
@@ -111,7 +115,7 @@ $this->menu=array(
 )); ?>
 
 <br />
-<h1>Juegos jugados</h1>
+<h1>Mis Juegos</h1>
 <?php 
 	$id_jugador=Yii::app()->user->id;
 	$model->unsetAttributes();
